@@ -43,7 +43,7 @@ patchBeer = (id, object , callback = renderBeerDetails) => {
   };
 
 fetch(`${BEERS_URL}/${id}`, requestOptions)
-  .then(response => response.json())
+  .then(res => res.json())
   .then(json => callback(json))
   .catch(error => console.log('error', error));
 }
@@ -66,18 +66,23 @@ beerDetails.addEventListener('click', e => {
     const description = beerDescriptionForm.firstElementChild.value;
     const beer = { description }
     patchBeer(1, beer)
-  } else if(e.target.matches("#submit-review")) {
+  }
+  else if(e.target.matches("#submit-review")) {
     e.preventDefault()
     const reviews = Array.from(beerReviewsList.children).map(li => { return li.innerText});
     const beerReviewformText = beerReviewForm.firstElementChild.value;
     reviews.push(beerReviewformText)
     const beer = { reviews }
     patchBeer(1, beer, renderReview) 
-  } else if(e.target.matches(".beer-review")) {
-    e.target.remove();
-    const reviews = Array.from(beerReviewsList.children);
-    const beerObject = { reviews }
-  }
+  } 
+  // else if(e.target.matches(".beer-review")) {
+  //   e.target.remove();
+  //   const reviews = Array.from(beerReviewsList.children);
+  //   const beerObject = { reviews }
+  //   console.log(reviews);
+    
+  //   patchBeer(1, beerObject)
+  // }
 })
 
 getBeer(1, renderBeerDetails)
