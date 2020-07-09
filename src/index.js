@@ -28,14 +28,18 @@ const renderBeer=beer=>{
 
 }
 
+fetch('http://localhost:3000/beers/1',{
+method: "PATCH",
+headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+},
+body: JSON.stringify({
+    description: newDescription
+})
 
+})
 
-const addReview = (e) => {
-    let form = e.target
-    console.log(form)
-
-
-}
 
 
 
