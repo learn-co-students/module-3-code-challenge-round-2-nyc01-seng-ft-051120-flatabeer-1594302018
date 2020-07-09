@@ -7,41 +7,49 @@ document.addEventListener("DOMContentLoaded", function(e){
     const reviewsContainer = document.querySelector(".reviews")
    
     
-    
     function renderBeer(beerObject){
+        console.log(beerObject.image_url)
         let beerName = beerDetails.children[0]
         beerName.innerHTML = `${beerObject.name}`
         let beerImage = beerDetails.children[1]
-        beerImage.inerHTML = `${beerObject.image_url}`
+        beerImage.innerHTML = `${beerObject.image_url}`
         let description = beerDescriptionContainer.children[0]
         description.innerHTML = `${beerObject.description}`
         // reviewsContainer.innerHTML = 
         //iterate inside reviews container and add li for each review  
+
+        const reviewsArray = `${beerObject.reviews}`
+        console.log(reviewsArray)
+   
+        array.forEach(element => {
+            let elementDiv = document.create("li")
+            elementDiv.innerText = element
+            reviewsContainer.append(element)
+        })
+    
+
+
+
     }
 
-    // const reviewsArray = `${beerObject.reviews}`
-    // function reviewsList(array){
-    //     array.forEach(element => {
-    //         let elementDiv = document.create("li")
-    //         elementDiv.innerText = element
-    //         reviewsContainer.append(element)
-    //     })
-    // }
+    
 
-    function renderBeers(beerData){
-        beerData.forEach(beer =>{
+    function renderFirstBeer(beerData){
+        console.log(beerData)
+        beerData.forEach(beer => {
             renderBeer(beer)
         })
+        
     }
 
     function fetchBeer(url){
-        fetchBeer(url)
+        fetch(url)
         .then(resp => resp.json())
         .then(beerData => {
-            renderBeers(beerData)
+            renderBeer(beerData)
         })
     }
-    fetchBeer("http://localhost:3000/beers")
+    fetchBeer("http://localhost:3000/beers/1")
 
 
     
@@ -53,9 +61,9 @@ document.addEventListener("DOMContentLoaded", function(e){
 1. See the first beer's details, including its 
 name, image, description, and reviews, when the page loads
  - grab beer details container for name and image
-    -interpolate name
+    -interpolate name - DONE
     -interpolate image
- - grab beer description form and interpolate description
+ - grab beer description form and interpolate description - DONE 
  - find and isolate reviews ul
     -populate reviews ul with reviews from db
 
