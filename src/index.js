@@ -48,13 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("test3")
     }
 
-// we need to add an event listener to the form and conditional around the button (update beer)
-
+// we need to add an event listener to the form and (type of event is submit since it's a form)
     const descriptionForm = document.getElementsByClassName("description")
 
-    descriptionForm.addEventListener("click", function(e) => {
-        
+    descriptionForm.addEventListener("submit", function(e){
+        e.preventDefault() 
 
+        if (e.target.className === "desc-btn")
+
+            const updatedDescription = {
+                // 
+                description: e.target
+
+            }
 
     })
 
