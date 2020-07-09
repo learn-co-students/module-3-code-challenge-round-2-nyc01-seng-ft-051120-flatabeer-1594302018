@@ -21,7 +21,7 @@ getBeer = (id, callback) => {
   
   fetch(`${BEERS_URL}/${id}`, requestOptions)
     .then(response => response.json())
-    .then(result => callback(result))
+    .then(json => callback(json))
     .catch(error => console.log('error', error));
 }
 
@@ -37,7 +37,7 @@ renderBeerDetails = json => {
   });
 }
 
-patchBeer = (id) => {
+patchBeer = (id, callback = renderBeerDetails) => {
   const beer = {
     description: beerDescriptionForm.firstElementChild.value,
   }
@@ -51,33 +51,27 @@ patchBeer = (id) => {
 
 fetch(`${BEERS_URL}/${id}`, requestOptions)
   .then(response => response.json())
-  .then(res => console.log(res))
+  .then(json => console.log(json))
   .catch(error => console.log('error', error));
 }
 
-
-renderReview = () => {
-  const reviewText = beerReviewForm.firstElementChild.value
+renderReview = json => {
   beerReviewsList.insertAdjacentHTML("afterbegin", `
-    <li>${reviewText}</li>
+    <li>${json.reviews[0]}</li>
   `)
 }
 
-
-beerDescriptionForm.addEventListener('click', e => {
+beerDetails.addEventListener('click', e => {
   if (e.target.matches("button")) {
     e.preventDefault()
     patchBeer(1)
   }
-})
 
-beerReviewForm.addEventListener('click', e => {
   if (e.target.matches("input")) {
     e.preventDefault()
-    renderReview()
+    patchBeer(1, renderReview) 
   }
 })
-
 
 getBeer(1, renderBeerDetails)
 
