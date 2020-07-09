@@ -53,38 +53,32 @@ renderReview = json => {
   
   beerReviewsList.insertAdjacentHTML("beforeend", `
     <li class="beer-review">${json.reviews.reverse()[0]}</li>
-  `)
-}
-
-removeReview = () => {
-
+  `);
 }
 
 beerDetails.addEventListener('click', e => {
   if (e.target.matches("#update-beer-desription")) {
     e.preventDefault()
     const description = beerDescriptionForm.firstElementChild.value;
-    const beer = { description }
-    patchBeer(1, beer)
+    const beer = { description };
+    patchBeer(1, beer);
   }
   else if(e.target.matches("#submit-review")) {
     e.preventDefault()
-    const reviews = Array.from(beerReviewsList.children).map(li => { return li.innerText});
+    const reviews = Array.from(beerReviewsList.children).map(li => li.innerText);
     const beerReviewformText = beerReviewForm.firstElementChild.value;
-    reviews.push(beerReviewformText)
-    const beer = { reviews }
-    patchBeer(1, beer, renderReview) 
+    reviews.push(beerReviewformText);
+    const beer = { reviews };
+    patchBeer(1, beer, renderReview) ;
   } 
-  // else if(e.target.matches(".beer-review")) {
-  //   e.target.remove();
-  //   const reviews = Array.from(beerReviewsList.children);
-  //   const beerObject = { reviews }
-  //   console.log(reviews);
-    
-  //   patchBeer(1, beerObject)
-  // }
+  else if(e.target.matches(".beer-review")) {
+    e.target.remove();
+    const reviews = Array.from(beerReviewsList.children).map(li => li.innerText);
+    const beerObject = { reviews };
+    patchBeer(1, beerObject);
+  }
 })
 
-getBeer(1, renderBeerDetails)
+getBeer(1, renderBeerDetails);
 
 
