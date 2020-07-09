@@ -16,24 +16,20 @@ function getBeers(){
     fetch("http://localhost:3000/beers")
     .then(resp => resp.json())
     // .then(console.log)
-    .then(beers => {
-        beers.forEach(beer => {
-            renderBeers(beer)
-        })
-    })
+    .then(beers => renderBeers(beers))
 }
 
 
-function renderBeers(beer){
+function renderBeers(beers){
+    beers.forEach(beer => {
     const beerDetails = document.getElementsByClassName("beer-details")
-    let beerDiv = document.createElement('div')
-    beerDiv.innerHTML =`
+    beerDetails.innerHTML =`
     <h2>${beer.name}</h2>
     <img src =${beer.image_url}>
     <p>${beer.description}</p>
     <ul class="reviews">${beer.reviews}</ul>
     `
-    beerDetails.append(beerDiv)
+    })
 }
 
 // <h2>Beer Name Goes Here</h2>
