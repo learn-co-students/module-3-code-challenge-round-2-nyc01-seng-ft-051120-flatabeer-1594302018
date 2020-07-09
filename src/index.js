@@ -37,39 +37,46 @@ renderBeerDetails = json => {
   });
 }
 
-patchBeer = (id, callback = renderBeerDetails) => {
-  const beer = {
-    description: beerDescriptionForm.firstElementChild.value,
-  }
+patchBeer = (id, object , callback = renderBeerDetails) => {
   var requestOptions = {
     method: 'PATCH',
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      description: beer.description
-    })
+    body: JSON.stringify(object)
   };
 
 fetch(`${BEERS_URL}/${id}`, requestOptions)
   .then(response => response.json())
-  .then(json => console.log(json))
+  .then(json => callback(json))
   .catch(error => console.log('error', error));
 }
 
 renderReview = json => {
-  beerReviewsList.insertAdjacentHTML("afterbegin", `
-    <li>${json.reviews[0]}</li>
+  console.log('render', json.reviews[0]);
+  
+  beerReviewsList.insertAdjacentHTML("beforeend", `
+    <li>${json.reviews.reverse()[0]}</li>
   `)
 }
 
 beerDetails.addEventListener('click', e => {
   if (e.target.matches("button")) {
     e.preventDefault()
-    patchBeer(1)
+    const beer = {
+      description: beerDescriptionForm.firstElementChild.value,
+    }
+    patchBeer(1, beer)
   }
 
   if (e.target.matches("input")) {
     e.preventDefault()
-    patchBeer(1, renderReview) 
+
+    const reviews = Array.from(beerReviewsList.children).map(li => { return li.innerText});
+    const beerReviewformText = beerReviewForm.firstElementChild.value;
+    reviews.push(beerReviewformText)
+    const beer = {
+      reviews
+    }
+    patchBeer(1, beer, renderReview) 
   }
 })
 
