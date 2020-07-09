@@ -9,8 +9,6 @@ const beerDescriptionForm = beerDetails.querySelector('.description');
 const beerReviewForm = beerDetails.querySelector('.review-form');
 const beerReviewsList = beerDetails.querySelector('.reviews');
 
-
-
 getBeer = (id, callback) => {  
   let requestOptions = {
     method: 'GET',
@@ -58,13 +56,17 @@ renderReview = json => {
   `)
 }
 
+removeReview = () => {
+
+}
+
 beerDetails.addEventListener('click', e => {
-  if (e.target.matches("button")) {
+  if (e.target.matches("#update-beer-desription")) {
     e.preventDefault()
     const description = beerDescriptionForm.firstElementChild.value;
     const beer = { description }
     patchBeer(1, beer)
-  } else if(e.target.matches("input")) {
+  } else if(e.target.matches("#submit-review")) {
     e.preventDefault()
     const reviews = Array.from(beerReviewsList.children).map(li => { return li.innerText});
     const beerReviewformText = beerReviewForm.firstElementChild.value;
@@ -72,8 +74,9 @@ beerDetails.addEventListener('click', e => {
     const beer = { reviews }
     patchBeer(1, beer, renderReview) 
   } else if(e.target.matches(".beer-review")) {
-    console.log('helo');
-    
+    e.target.remove();
+    const reviews = Array.from(beerReviewsList.children);
+    const beerObject = { reviews }
   }
 })
 
