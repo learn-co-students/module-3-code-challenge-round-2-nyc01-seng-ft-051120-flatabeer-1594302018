@@ -13,8 +13,12 @@ const fetchBeers=()=> {
 }
 
 const renderBeer=beer=>{
+    const beerDet = document.getElementsByClassName('beer-details')[0]
     const nameCard = document.querySelector('h2')
     const imageCard = document.querySelector('img')
+     
+    nameCard.textContent = ${beer.name}
+    beerDet.appendChild(nameCard)
 
 }
 
