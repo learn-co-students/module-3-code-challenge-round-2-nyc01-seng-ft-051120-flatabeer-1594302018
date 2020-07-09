@@ -19,28 +19,28 @@ document.addEventListener("DOMContentLoaded", function(e){
         //iterate inside reviews container and add li for each review  
 
         const reviewsArray = `${beerObject.reviews}`
+        let splitArr = reviewsArray.split(" ")
         console.log(reviewsArray)
-   
-        array.forEach(element => {
-            let elementDiv = document.create("li")
-            elementDiv.innerText = element
-            reviewsContainer.append(element)
-        })
-    
-
-
+       
+        for(let i = 0; i < reviewsArray.length; i++){
+            let review = reviewsArray[i]
+            
+            const elementDiv = document.createElement("li")
+            elementDiv.innerText = review
+            reviewsContainer.append(elementDiv)
+        }
 
     }
 
     
 
-    function renderFirstBeer(beerData){
-        console.log(beerData)
-        beerData.forEach(beer => {
-            renderBeer(beer)
-        })
+    // function renderFirstBeer(beerData){
+    //     console.log(beerData)
+    //     beerData.forEach(beer => {
+    //         renderBeer(beer)
+    //     })
         
-    }
+    // }
 
     function fetchBeer(url){
         fetch(url)
@@ -51,6 +51,13 @@ document.addEventListener("DOMContentLoaded", function(e){
     }
     fetchBeer("http://localhost:3000/beers/1")
 
+    const updateButton = beerDescriptionContainer.children[1]
+    updateButton.addEventListener("submit", function(e){
+        e.preventDefault()
+        let updateInput = beerDescriptionContainer.children[0]
+        updateInput.innerText =                 //take user input and add as new text
+
+    })
 
     
 
@@ -71,6 +78,9 @@ name, image, description, and reviews, when the page loads
 
 2. Change the beer's description and still see that change when reloading the page
 //patch on the description
+
+- grab update beer button
+
 
 3. Add a review for the beer (no persistence needed)
 //post on the beer
