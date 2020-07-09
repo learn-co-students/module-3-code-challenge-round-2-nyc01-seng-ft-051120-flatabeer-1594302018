@@ -16,15 +16,26 @@ fetchBeers()
 const renderBeer=beer=>{
     const beerDet = document.getElementsByClassName('beer-details')[0]
     const nameCard = document.querySelector('h2')
-    console.log(nameCard)
+
     const imageCard = document.querySelector('img')
+    const description = document.querySelector('textarea')
+    const reviews = document.querySelector('.reviews')
      
     nameCard.textContent = beer.name
-    beerDet.appendChild(nameCard)
+    imageCard['src'] = beer.image_url
+    description.textContent = beer.description
+    reviews.textContent = beer.reviews
 
 }
 
 
+
+const addReview = (e) => {
+    let form = e.target
+    console.log(form)
+
+
+}
 
 
 
