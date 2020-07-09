@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     })
 
 
-    function postReview(url, reviewForm){
+    function postReview(url, review){
         fetch(url, {
             method: "POST", 
             headers: {
