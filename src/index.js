@@ -8,28 +8,36 @@
 document.addEventListener("DOMContentLoaded", function(){
 
     // console.log("dom loaded")
-    getBeers()
+    renderFirstBeer()
 
 });
 
-function getBeers(){
-    fetch("http://localhost:3000/beers")
+// function getBeers(){
+//     fetch("http://localhost:3000/beers")
+//     .then(resp => resp.json())
+//     // .then(console.log)
+//     .then(beers => renderFirstBeer(beers))
+// }
+
+
+function renderFirstBeer(){
+    fetch('http://localhost:3000/beers/1')
     .then(resp => resp.json())
-    // .then(console.log)
-    .then(beers => renderBeers(beers))
-}
-
-
-function renderBeers(beers){
-    beers.forEach(beer => {
-    const beerDetails = document.getElementsByClassName("beer-details")
-    beerDetails.innerHTML =`
-    <h2>${beer.name}</h2>
-    <img src =${beer.image_url}>
-    <p>${beer.description}</p>
-    <ul class="reviews">${beer.reviews}</ul>
-    `
+    .then(beer => {
+        document.querySelector('h2').textContent=beer.name,
+        document.querySelector('img').src=beer.image_url
+        document.querySelector('textarea').textContent=beer.description
+        const beerUl = document.getElementsByClassName('reviews')
+        let beerli = document.createElement('li')
+        beerLi.inner = '<li>${beer.reviews}</li>'
+        beerUl.append(beerLi)
     })
+    // then show the first beer details, 
+    // list the name, 
+    // display the Image, 
+    // show the description , 
+    // and list the reviews
+    
 }
 
 // <h2>Beer Name Goes Here</h2>
