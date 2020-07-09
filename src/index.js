@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Base_URL = "http://localhost:3000/beers"
 fetchBeer()
 updateDescription()
+submitReview()
 
     function fetchBeer() {
         fetch(`${Base_URL}/1`)
@@ -17,16 +18,21 @@ updateDescription()
         description = document.querySelector("#beer-desc")
         image = document.querySelector('img')
         reviews = document.querySelector('.reviews')
+        beer.reviews.forEach(review => {
+            let li = document.createElement('li')
+            li.append(review)
+            reviews.append(li)
+        })
         h2.innerText = beer.name
         image.src = beer.image_url
         description.innerText = beer.description
-        reviews.innerText = beer.reviews
+        
+
     }
 
     function updateDescription(){
         document.addEventListener("submit", e => {
             e.preventDefault()
-            console.log(e.target)
             if(e.target.className === "description"){
                 descText = document.querySelector("#beer-desc")
             
@@ -47,8 +53,16 @@ updateDescription()
         })
     }
 
-    function submitReview{
-        document.addEventLister
+    function submitReview() {
+        document.addEventListener("submit", e => {
+            e.preventDefault()
+            // console.dir(e.target)
+            if(e.target.className === "review-form"){
+                console.log = e.target[0].value
+
+            }
+
+        })
 
     }
 
