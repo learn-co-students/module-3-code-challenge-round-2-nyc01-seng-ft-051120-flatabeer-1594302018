@@ -1,20 +1,20 @@
-# FlataBeer
+<!-- # FlataBeer
 
 Today you'll be building an app for viewing and editing beers. You will be using a local API and building out the frontend for our app, FlataBeer.
 
 ## Demo
 
-Use this gif as an example of how the app should work.
+Use this gif as an example of how the app should work. -->
 
-![demo gif](assets/demo.gif)
-
-## Setup
+<!-- ## Setup
 
 - Fork and clone this repository
 - Run `json-server --watch db.json` to get the backend started
-- Open `index.html` in your browser
+- Open `index.html` in your browser -->
 
 ## Endpoints
+
+![demo gif](assets/demo.gif)
 
 Your base URL for your API will be: http://localhost:3000
 
