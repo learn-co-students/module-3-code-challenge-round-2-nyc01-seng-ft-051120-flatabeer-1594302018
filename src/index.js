@@ -38,15 +38,15 @@ renderBeerDetails = json => {
 }
 
 patchBeer = (id) => {
-  const beerObject = {
+  const beer = {
     description: beerDescriptionForm.firstElementChild.value,
   }
   var requestOptions = {
     method: 'PATCH',
     headers: {"Content-Type": "application/json"},
-    body: {
-      description: beerObject.description
-    }
+    body: JSON.stringify({
+      description: beer.description
+    })
   };
 
 fetch(`${BEERS_URL}/${id}`, requestOptions)
@@ -55,12 +55,27 @@ fetch(`${BEERS_URL}/${id}`, requestOptions)
   .catch(error => console.log('error', error));
 }
 
+
+renderReview = () => {
+  const reviewText = beerReviewForm.firstElementChild.value
+  beerReviewsList.insertAdjacentHTML("afterbegin", `
+    <li>${reviewText}</li>
+  `)
+}
+
+
 beerDescriptionForm.addEventListener('click', e => {
   if (e.target.matches("button")) {
     e.preventDefault()
     patchBeer(1)
   }
+})
 
+beerReviewForm.addEventListener('click', e => {
+  if (e.target.matches("input")) {
+    e.preventDefault()
+    renderReview()
+  }
 })
 
 
