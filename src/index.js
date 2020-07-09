@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         //iterate inside reviews container and add li for each review  
 
         const reviewsArray = `${beerObject.reviews}`
-        let splitArr = reviewsArray.split(" ")
+        let splitArr = reviewsArray.split(" ")  
+        //not working bc not splitting by element
       
        
         for(let i = 0; i < reviewsArray.length; i++){
@@ -61,8 +62,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             body: JSON.stringify({
                 "description": desc
             })
-            .then(resp => resp.json())
-            .then(desc => ) //not sure what to do w the description - know it needs to be changed to json, needs a function?
+           
         })
     }
 
@@ -77,16 +77,29 @@ document.addEventListener("DOMContentLoaded", function(e){
     })
 
 
-    function postReview(url, review){
+    function postReview(url, reviewForm){
         fetch(url, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            }
+            }, 
+            body: JSON.stringify({
+                "review": review
+            })
+
         })
     }
     
+    const reviewForm = document.querySelector(".review-form")
+    reviewForm.addEventListener("submit", function(e){
+        e.preventDefault()
+        const newReview = reviewForm.innerText //user input
+
+        postReview("http://localhost:3000/beers", newReview)
+        reviewForm.reset()
+    })
+
 
     
 
