@@ -2,7 +2,7 @@
   "beers": [
     {
       "id": 1,
-      "name": "Oh So Flattening",
+      "name": "Patched Oh So Flattening",
       "description": "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.",
       "image_url": "https://i.ibb.co/wQ4G0w1/flatiron-brew.png",
       "reviews": [

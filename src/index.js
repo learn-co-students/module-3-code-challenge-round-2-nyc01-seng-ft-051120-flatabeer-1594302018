@@ -28,12 +28,42 @@ getBeer = (id, callback) => {
 renderBeerDetails = json => {
   beerName.innerText = json.name;
   beerImage.src = json.image_url;
-  const beerReviews = Array.from(beerReviewsList.children);
-  beerReviews.map(review => {
-    console.log(review);
-    
-  })
+  beerReviewsList.innerHTML = "";
+  beerDescriptionForm.firstElementChild.value = json.description;
+  json.reviews.map(review => {
+    beerReviewsList.innerHTML += `
+    <li>${review}</li>
+    `
+  });
 }
+
+patchBeer = (id) => {
+  const beerObject = {
+    description: beerDescriptionForm.firstElementChild.value,
+  }
+  var requestOptions = {
+    method: 'PATCH',
+    headers: {"Content-Type": "application/json"},
+    body: {
+      description: beerObject.description
+    }
+  };
+
+fetch(`${BEERS_URL}/${id}`, requestOptions)
+  .then(response => response.json())
+  .then(res => console.log(res))
+  .catch(error => console.log('error', error));
+}
+
+beerDescriptionForm.addEventListener('click', e => {
+  if (e.target.matches("button")) {
+    e.preventDefault()
+    patchBeer(1)
+  }
+
+})
 
 
 getBeer(1, renderBeerDetails)
+
+
