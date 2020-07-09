@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(e){
    
     
     function renderBeer(beerObject){
-        console.log(beerObject.image_url)
+        
         let beerName = beerDetails.children[0]
         beerName.innerHTML = `${beerObject.name}`
         let beerImage = beerDetails.children[1]
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         const reviewsArray = `${beerObject.reviews}`
         let splitArr = reviewsArray.split(" ")
-        console.log(reviewsArray)
+      
        
         for(let i = 0; i < reviewsArray.length; i++){
             let review = reviewsArray[i]
@@ -51,13 +51,42 @@ document.addEventListener("DOMContentLoaded", function(e){
     }
     fetchBeer("http://localhost:3000/beers/1")
 
+    function updateBeer(url, desc){
+        fetch(url, {
+            method: "PATCH", 
+            headers:{
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                "description": desc
+            })
+            .then(resp => resp.json())
+            .then(desc => ) //not sure what to do w the description - know it needs to be changed to json, needs a function?
+        })
+    }
+
     const updateButton = beerDescriptionContainer.children[1]
     updateButton.addEventListener("submit", function(e){
         e.preventDefault()
-        let updateInput = beerDescriptionContainer.children[0]
-        updateInput.innerText =                 //take user input and add as new text
+        let updateInput = beerDescriptionContainer.children[0].innerText
+        console.log(updateInput)
+        updateInput.innerText =  "new beer"        //take user input and add as new text
 
+        updateBeer(`http://localhost:3000/beers/${beerId}`, "This is a beer")
     })
+
+
+    function postReview(url, review){
+        fetch(url, {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        })
+    }
+    
 
     
 
@@ -80,9 +109,12 @@ name, image, description, and reviews, when the page loads
 //patch on the description
 
 - grab update beer button
+- add event listener
+- change innertext based on user input
 
 
 3. Add a review for the beer (no persistence needed)
 //post on the beer
+//create a form
 
 */
