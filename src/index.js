@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     changeDescription()
 })
 let beerDetail = document.querySelector('.beer-details')
+let descriptionForm = document.querySelector('.description')
+let descriptionText = descriptionForm.firstChild.nextElementSibling
+// console.log(description)
+let descriptionContent = descriptionText.value
 // let reviewUl = document.querySelector('.reviews')
 
 function getBeer(){
@@ -43,24 +47,52 @@ function render(beer){
 }
 
 function changeDescription(){
-    let descriptionForm = document.querySelector('.description')
-    let descriptionContent = descriptionForm.firstChild.nextElementSibling.textContent
-    // console.log(descriptionContent)
-    document.addEventListener('click', function(e){
+    // let descriptionForm = document.querySelector('.description')
+    // let descriptionContent = descriptionForm.firstChild.nextElementSibling.textContent
+    console.log(descriptionContent)
+
+    descriptionForm.addEventListener('submit', function(e){
         if(e.target.className === 'update-description'){
             e.preventDefault()
-            console.log(e.target)
+
+            fetch("http://localhost:3000/beers/1", {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    description: descriptionContent
+                })
+            })
+            .then(resp => resp.json())
+            // .then(review => renderNewReview(review))
+            .then(review => descriptionContent=`${review}`)
         }
     })
-    // fetch("http://localhost:3000/beers/1", {
-    //     method: "PATCH",
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         description: descriptionContent
-    //     })
+
+
+    // document.addEventListener('submit', function(e){
+    //     if(e.target.className === 'update-description'){
+    //         e.preventDefault()
+
+    //         fetch("http://localhost:3000/beers/1", {
+    //             method: "PATCH",
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Accept': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 description: descriptionContent
+    //             })
+    //         })
+    //         .then(resp => resp.json())
+    //         // .then(review => renderNewReview(review))
+    //         .then(review => descriptionContent=review)
+    //     }
     // })
-    
+}
+
+function renderNewReview(review){
+
 }
