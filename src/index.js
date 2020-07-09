@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(resp=> resp.json())
     .then(beer => {
         renderBeer(beer)
+        addComment(beer)
     })
 
     const renderBeer = beer => {
@@ -27,9 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderReview = reviews => {
         return reviews.map(r => {
-            return `<li>${r.reviews}</li>`
+            return `<li>${r}</li>`
         }).join("")
     }
+  
 
     description.addEventListener('submit', e => {
         e.preventDefault()
@@ -54,10 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault()
 
             let form = e.target
-            text = form[0].value
-            renderReview
+            reviews = form[0].value
+        let ulReviews = document.querySelector('.reviews')
+        ulReviews.innerHTML +=  `<li>${reviews}</li>`
+
+
+        // fetch('http://localhost:3000/beers/1', {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     },
+        //     body: JSON.stringify(reviewObj)
+        // })
+
         })
-        
     }
     addComment()
 })
