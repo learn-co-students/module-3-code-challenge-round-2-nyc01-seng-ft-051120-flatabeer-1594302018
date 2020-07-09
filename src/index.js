@@ -26,11 +26,30 @@ updateDescription()
     function updateDescription(){
         document.addEventListener("submit", e => {
             e.preventDefault()
+            console.log(e.target)
+            if(e.target.className === "description"){
+                descText = document.querySelector("#beer-desc")
             
-            let descForm = e.target
-            let newDesc = descForm.
+                fetch(`${Base_URL}/1`,{
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "accept": "application/json"
+                    },
+                    body: JSON.stringify({ description: descText.value })
+                })
+
+            }
+            
+
+            
 
         })
+    }
+
+    function submitReview{
+        document.addEventLister
+
     }
 
 
