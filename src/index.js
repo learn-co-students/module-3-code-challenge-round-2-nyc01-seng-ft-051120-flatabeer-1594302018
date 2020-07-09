@@ -1,20 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     getBeer()
-    // addReview()
-    // changeDescription()
 })
-// let descriptionForm = document.querySelector('.description')
-// let beerDetail = document.querySelector('.beer-details')
 
-// let reviewForm = document.querySelector('.review-form')
-
-
-
-// let descriptionContent = descriptionForm.text
-// let descriptionText = descriptionForm.firstChild.nextElementSibling
-// console.log(description)
-// let descriptionContent = descriptionText.value
-// let reviewUl = document.querySelector('.reviews')
 
 function getBeer(){
     
@@ -31,13 +18,13 @@ function render(beer){
         <img src="${beer.image_url}">
 
         <form class="description">
-          <textarea name='description-text' class='dec-text'>${beer.description}</textarea>
+          <textarea name='tex' class='hi'>${beer.description}</textarea>
           <button class='update-description'>Update Beer</button>
         </form>
 
         <h3>Leave a Review</h3>
         <form class="review-form">
-          <textarea name='reviews'></textarea>
+          <textarea name='reviews'>write something</textarea>
           <input type="submit" value="Submit">
         </form>
 
@@ -47,82 +34,43 @@ function render(beer){
     `
     let reviewUl = document.querySelector('.reviews')
 
+    document.addEventListener('submit', function(e){
+        let reviewForm = document.querySelector('.review-form')
+        if(e.target.className === 'review-form'){
+            e.preventDefault()
+            let newReview = reviewForm.reviews.value
+            let newReviewLi = document.createElement('li')
+            newReviewLi.innerHTML = `
+            ${newReview}
+            `
+            reviewUl.append(newReviewLi)
+        }
+     
+    })
+
+    document.addEventListener('submit', function(e){
+        let descriptionForm = document.querySelector('.description')
+        if(e.target.className === 'description'){
+            e.preventDefault()
+            // console.log(descriptionForm)
+
+            fetch("http://localhost:3000/beers/1", {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    description: descriptionForm.tex.value
+                })
+            })
+        }
+    })
+
     beer.reviews.forEach(function(r){
         let reviewLi = document.createElement('li')
         reviewLi.innerText = `${r}`
        reviewUl.append(reviewLi)
-
     })
 }
 
-// function addReview(){
-    
-//     console.log(reviewForm)
-    
-// }
-
-document.addEventListener('submit', function(e){
-    let reviewForm = document.querySelector('.review-form')
-    if(e.target.className === 'review-form'){
-        e.preventDefault()
-        let newReview = reviewForm.reviews
-        console.log(newReview)
-    }
- 
-})
-
-
-// function changeDescription(){
-//     // let descriptionForm = document.querySelector('.description')
-//     // let descriptionContent = descriptionForm.firstChild.nextElementSibling.textContent
-//     // console.log(descriptionContent)
-
-//     document.addEventListener('submit', function(e){
-//         e.preventDefault()
-//         if(e.target.className === 'update-description'){
-//             // e.preventDefault()
-//             // console.log(descriptionForm)
-
-//             fetch("http://localhost:3000/beers/1", {
-//                 method: "PATCH",
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Accept': 'application/json'
-//                 },
-//                 body: JSON.stringify({
-//                     description: descriptionForm.tex.value
-//                 })
-//             })
-//             .then(resp => resp.json())
-//             .then(review => renderNewReview(review))
-//             // .then(review => descriptionContent=`${review}`)
-//         }
-//     })
-
-
-//     // document.addEventListener('submit', function(e){
-//     //     if(e.target.className === 'update-description'){
-//     //         e.preventDefault()
-
-//     //         fetch("http://localhost:3000/beers/1", {
-//     //             method: "PATCH",
-//     //             headers: {
-//     //                 'Content-Type': 'application/json',
-//     //                 'Accept': 'application/json'
-//     //             },
-//     //             body: JSON.stringify({
-//     //                 description: descriptionContent
-//     //             })
-//     //         })
-//     //         .then(resp => resp.json())
-//     //         // .then(review => renderNewReview(review))
-//     //         .then(review => descriptionContent=review)
-//     //     }
-//     // })
-// }
-
-// function renderNewReview(review){
-//     let beerDescription = document.querySelector('.dec-text')
-//     beerDescription.innerText = `${review}`
-
-// }
