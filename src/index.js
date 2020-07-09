@@ -12,21 +12,42 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-const URL = "http://localhost:3000/beers"
-
 function getBeers(){
-    fetch(URL)
+    fetch("http://localhost:3000/beers")
     .then(resp => resp.json())
     // .then(console.log)
-    .then(beers =. {
+    .then(beers => {
         beers.forEach(beer => {
             renderBeers(beer)
         })
     })
 }
+
+
 function renderBeers(beer){
-    let beerDiv = document.querySelector("beer-details")
+    const beerDetails = document.getElementsByClassName("beer-details")
+    let beerDiv = document.createElement('div')
     beerDiv.innerHTML =`
+    <h2>${beer.name}</h2>
+    <img src =${beer.image_url}>
+    <p>${beer.description}</p>
+    <ul class="reviews">${beer.reviews}</ul>
     `
-    
+    beerDetails.append(beerDiv)
 }
+
+// <h2>Beer Name Goes Here</h2>
+// <img src="assets/image-placeholder.jpg">
+
+// <form class="description">
+//       <textarea>Beer description goes here</textarea>
+//       <button>Update Beer</button>
+//     </form>
+
+// <h3>Leave a Review</h3>
+//     <form class="review-form">
+//       <textarea></textarea>
+//       <input type="submit" value="Submit">
+//     </form>
+
+// <h3>Customer Reviews</h3>
