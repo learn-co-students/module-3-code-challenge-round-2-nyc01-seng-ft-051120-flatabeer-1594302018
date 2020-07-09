@@ -1,24 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
     getBeer()
-    addReview()
+    // addReview()
     // changeDescription()
 })
-let beerDetail = document.querySelector('.beer-details')
-let descriptionForm = document.querySelector('.description')
+// let descriptionForm = document.querySelector('.description')
+// let beerDetail = document.querySelector('.beer-details')
+
+// let reviewForm = document.querySelector('.review-form')
+
+
+
 // let descriptionContent = descriptionForm.text
-let descriptionText = descriptionForm.firstChild.nextElementSibling
+// let descriptionText = descriptionForm.firstChild.nextElementSibling
 // console.log(description)
 // let descriptionContent = descriptionText.value
 // let reviewUl = document.querySelector('.reviews')
 
 function getBeer(){
-    fetch("http://localhost:3000/beers/2")
+    
+    fetch("http://localhost:3000/beers/1")
     .then(resp => resp.json())
     // .then(console.log)
     .then(beer => render(beer))
 }
 
 function render(beer){
+    let beerDetail = document.querySelector('.beer-details')
     beerDetail.innerHTML =`
     <h2>${beer.name}</h2>
         <img src="${beer.image_url}">
@@ -30,7 +37,7 @@ function render(beer){
 
         <h3>Leave a Review</h3>
         <form class="review-form">
-          <textarea></textarea>
+          <textarea name='reviews'></textarea>
           <input type="submit" value="Submit">
         </form>
 
@@ -48,9 +55,21 @@ function render(beer){
     })
 }
 
-function addReview(){
+// function addReview(){
     
-}
+//     console.log(reviewForm)
+    
+// }
+
+document.addEventListener('submit', function(e){
+    let reviewForm = document.querySelector('.review-form')
+    if(e.target.className === 'review-form'){
+        e.preventDefault()
+        let newReview = reviewForm.reviews
+        console.log(newReview)
+    }
+ 
+})
 
 
 // function changeDescription(){
