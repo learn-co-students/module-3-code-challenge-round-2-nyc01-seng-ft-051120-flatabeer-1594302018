@@ -27,9 +27,10 @@ function renderFirstBeer(){
         document.querySelector('h2').textContent=beer.name,
         document.querySelector('img').src=beer.image_url
         document.querySelector('textarea').textContent=beer.description
-        const beerUl = document.getElementsByClassName('reviews')
-        let beerli = document.createElement('li')
-        beerLi.inner = '<li>${beer.reviews}</li>'
+        const beerUl = document.querySelector('reviews')
+        let beerLi = document.createElement('li')
+        beerLi.innerHTML = `
+        <li>${beer.reviews}</li>`
         beerUl.append(beerLi)
     })
     // then show the first beer details, 
@@ -40,18 +41,4 @@ function renderFirstBeer(){
     
 }
 
-// <h2>Beer Name Goes Here</h2>
-// <img src="assets/image-placeholder.jpg">
 
-// <form class="description">
-//       <textarea>Beer description goes here</textarea>
-//       <button>Update Beer</button>
-//     </form>
-
-// <h3>Leave a Review</h3>
-//     <form class="review-form">
-//       <textarea></textarea>
-//       <input type="submit" value="Submit">
-//     </form>
-
-// <h3>Customer Reviews</h3>
