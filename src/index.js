@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Base_URL = "http://localhost:3000/beers"
 fetchBeer()
+updateDescription()
 
     function fetchBeer() {
         fetch(`${Base_URL}/1`)
@@ -13,13 +14,26 @@ fetchBeer()
     function getBeer(beer){
         document.querySelector(".beer-details")
         h2 = document.querySelector("h2")
+        description = document.querySelector("#beer-desc")
         image = document.querySelector('img')
-        console.log(image)
+        reviews = document.querySelector('.reviews')
         h2.innerText = beer.name
-        image.src = beer.img_url
-
-        
+        image.src = beer.image_url
+        description.innerText = beer.description
+        reviews.innerText = beer.reviews
     }
+
+    function updateDescription(){
+        document.addEventListener("submit", e => {
+            e.preventDefault()
+            
+            let descForm = e.target
+            let newDesc = descForm.
+
+        })
+    }
+
+
 
 
 
